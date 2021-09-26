@@ -2,6 +2,7 @@ import React from 'react';
 import './Board.css';
 
 const cols = ["To Do", "In Progress", "Ready for Testing","Done"];
+const boardTitle = "Example Board Title";
 const footerText = "+ Add an item";
 
 const Homepage = () => {
@@ -20,8 +21,13 @@ const Homepage = () => {
         });
 
     return(
-        <div class="vertical_swimlanes">
-            {cardColumns}
+        <div>
+            <div class="board_options">
+                {boardTitle}
+            </div>
+            <div class="vertical_swimlanes">
+                {cardColumns}
+            </div>
         </div>
     );
 }
