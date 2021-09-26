@@ -15,7 +15,8 @@ const Homepage = () => {
                     {colHeader}
                 </div>
                 <div class="col_footer">
-                    {footerText}
+                    {/* {footerText} */}
+                    <button class="addItemButton">{footerText}</button>
                 </div>
             </div>)
         });

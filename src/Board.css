@@ -11,7 +11,7 @@
     border-radius: 3px;
     text-align: center;
     min-width: 272px;
-    padding: 5px 12px 5px 12px;
+    padding: 12px;
     margin: 5px;
 }
 
@@ -21,8 +21,35 @@
     font-size: large;
 }
 
+.col_header {
+    height: 30px;
+    /* padding-top: 5px; */
+    text-align: left;
+}
+
 .col_footer {
-    padding-top: 5px;
-    padding-bottom: 5px;
     color: #8993a6;
+}
+
+.addItemButton {
+    border-radius: 3px;
+    background-color: #ebecf0;;
+    border-color: #ebecf0;
+    width: 100%;
+    cursor: pointer;
+    color: #8993a6;
+    transition-duration: 0.1s;
+    border-style: solid;
+}
+
+button {
+    font-size: 16px;
+    text-align: left;
+    font-family: inherit;
+    padding: 5px 0 5px 0;
+}
+
+button:hover {
+    background-color: #8993a6;
+    color: white;
 }
