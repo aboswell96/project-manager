@@ -23,12 +23,19 @@
 
 .col_header {
     height: 30px;
-    /* padding-top: 5px; */
     text-align: left;
+    font-weight: bold;
 }
 
 .col_footer {
     color: #8993a6;
+}
+
+.col_cards {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .addItemButton {
@@ -52,4 +59,19 @@ button {
 button:hover {
     background-color: #8993a6;
     color: white;
+}
+
+.ticket_tag{
+    display: inline;
+    margin-right: 3px;
+    /* todo: remove margin from the last tag */
+    padding-left: 0px;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 5px;
 }
