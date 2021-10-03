@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Board.css';
+import CreateTicketModal from './CreateTicketModal.js';
 
 import { Card, CardContent, Typography } from '@mui/material';
-// import { makeStyles } from '@mui/styles';
 
 const cols = ["To Do", "In Progress", "Ready for Testing","Done"];
 const boardTitle = "Example Board Title";
@@ -11,30 +11,24 @@ const dummydata = [
     {
         title:"title 1",
         tags:["bug","spike","escalation","new feature"],
+        description:"test description",
     },
     {
         title:"looooooooooooooooooooooooong title",
         tags:["bug","spike","escalation","need help"],
+        description:"test description",
     },
     {
         title:"title",
         tags:[],
+        description:"test description",
     },
 ];
 
-// const dummydata = [];
-
-// const useStyles = makeStyles({
-//     mainText: {
-//         pt: 0,
-//         pl: 0,
-//     },
-// });
-
 const Homepage = () => {
 
-    // const classes = useStyles();
-    // console.log(classes);
+    const [isOpen,setIsOpen] = useState(false);
+    const handleClose = () => setIsOpen(false);
 
     const tickets = dummydata.map((data,i) => {
 
@@ -50,6 +44,10 @@ const Homepage = () => {
         );
     });
 
+    const handleCreateTicketSubmitted = () => {
+        alert('create pushed');
+    }
+
     const cardColumns = cols.map((colHeader,index) => {
         return(
             <div class="column_container">
@@ -60,10 +58,19 @@ const Homepage = () => {
                     {tickets}
                 </div>
                 <div class="col_footer">
-                    <button class="addItemButton">{footerText}</button>
+                    <CreateTicketModal
+                        isOpen={isOpen}
+                        handleClose={handleClose}
+                        handleCreateTicketSubmitted={handleCreateTicketSubmitted}
+                    />
+                    <button class="addItemButton" onClick={()=>handleCreateTicket()}>{footerText}</button>
                 </div>
             </div>)}
     );
+
+    const handleCreateTicket = () => {
+        setIsOpen(!isOpen);
+    }
 
     return(
         <div>
@@ -75,6 +82,7 @@ const Homepage = () => {
             </div>
         </div>
     );
+    
 };
 
 const getTagComponentsForTagText = (tags) => {
