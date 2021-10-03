@@ -11,7 +11,7 @@
     border-radius: 3px;
     text-align: center;
     min-width: 272px;
-    padding: 12px;
+    padding: 12px 12px 10px 12px;
     margin: 5px;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .col_cards {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -47,6 +47,8 @@
     color: #8993a6;
     transition-duration: 0.1s;
     border-style: solid;
+    border-radius: 4px;
+    line-height: 1;
 }
 
 button {

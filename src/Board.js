@@ -50,7 +50,6 @@ const Homepage = () => {
         );
     });
 
-
     const cardColumns = cols.map((colHeader,index) => {
         return(
             <div class="column_container">
