@@ -44,8 +44,10 @@ const Homepage = () => {
         );
     });
 
-    const handleCreateTicketSubmitted = () => {
-        alert('create pushed');
+    const handleCreateTicketSubmitted = (ticket) => {
+        // alert(JSON.stringify(ticket));
+        dummydata.push(ticket);
+        handleClose();
     }
 
     const cardColumns = cols.map((colHeader,index) => {

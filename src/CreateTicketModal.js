@@ -61,6 +61,7 @@ const CreateTicketModal = (props) => {
     const theme = useTheme();
     const [tags, setTags] = useState([]);
     const [ticketDescription,changeTicketDescription] = useState("");
+    const [ticketName, changeTicketName] = useState("");
 
     const handleChange = (event) => {
         const {
@@ -76,6 +77,21 @@ const CreateTicketModal = (props) => {
         changeTicketDescription(event.target.value);
     }
 
+    const handleChangeTicketName = (event) => {
+        changeTicketName(event.target.value);
+    }
+
+    const handleCreateButtonClicked = () => {
+
+        const ticket = {
+            'title': ticketName,
+            'tags': tags,
+            'description': ticketDescription,
+        }
+
+        props.handleCreateTicketSubmitted(ticket);
+    }
+
     return(
         <div>
             <Modal
@@ -86,7 +102,7 @@ const CreateTicketModal = (props) => {
                 <Typography variant="h4" component="div" gutterBottom>
                     Create Ticket
                 </Typography>
-                <TextField fullWidth label="Enter a Ticket Name" id="fullWidth" />
+                <TextField fullWidth label="Enter a Ticket Name" value={ticketName} onChange={handleChangeTicketName} id="fullWidth" />
                 <FormControl sx={{ m: 1, width: 300 }}>
                 <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
                 <Select
@@ -126,7 +142,7 @@ const CreateTicketModal = (props) => {
                     sx={{width:'46ch',mb:'12px'}}
                     />
                 <Stack spacing={2} direction="row">
-                    <Button variant="contained" onClick={props.handleCreateTicketSubmitted}>Create</Button>
+                    <Button variant="contained" onClick={handleCreateButtonClicked}>Create</Button>
                     <Button variant="outlined" onClick={props.handleClose}>Cancel</Button>
                 </Stack>
             </Box>
