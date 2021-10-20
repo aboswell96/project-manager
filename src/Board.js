@@ -33,6 +33,7 @@ const Homepage = () => {
     const [isOpen,setIsOpen] = useState(false);
     const handleClose = () => setIsOpen(false);
     const [dummydata,SetDummyData] = useState(tempData);
+    const [listClicked, SetListClicked] = useState(null);
 
     const handleCreateTicketSubmitted = (ticket) => {
         // alert(JSON.stringify(ticket));
@@ -40,8 +41,13 @@ const Homepage = () => {
         handleClose();
     }
 
-    const handleCreateTicket = () => {
+    const handleCreateTicket = (listName) => {
+        SetListClicked(listName);
         setIsOpen(!isOpen);
+    }
+
+    const listChanged = () => {
+        
     }
 
     const cardColumns = lists.map((listName,index) => {
@@ -69,14 +75,7 @@ const Homepage = () => {
                     {tickets}
                 </div>
                 <div class="col_footer">
-                    <CreateTicketModal
-                        isOpen={isOpen}
-                        handleClose={handleClose}
-                        handleCreateTicketSubmitted={handleCreateTicketSubmitted}
-                        lists={lists}
-                        defaultListValue={listName}
-                    />
-                    <button class="addItemButton" onClick={()=>handleCreateTicket()}>{footerText}</button>
+                    <button class="addItemButton" onClick={()=>handleCreateTicket(listName)}>{footerText}</button>
                 </div>
             </div>)
     });
@@ -89,6 +88,14 @@ const Homepage = () => {
             <div class="vertical_swimlanes">
                 {cardColumns}
             </div>
+            <CreateTicketModal
+                        isOpen={isOpen}
+                        handleClose={handleClose}
+                        handleCreateTicketSubmitted={handleCreateTicketSubmitted}
+                        lists={lists}
+                        defaultListValue={listClicked}
+                        handleListChange={(event)=>{SetListClicked(event.target.value)}}
+                    />
         </div>
     );
     

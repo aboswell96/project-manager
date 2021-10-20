@@ -62,7 +62,6 @@ const CreateTicketModal = (props) => {
     const [tags, setTags] = useState([]);
     const [ticketDescription,changeTicketDescription] = useState("");
     const [ticketName, changeTicketName] = useState("");
-    const [ticketList, changeTicketList] = useState(props.defaultListValue);
 
     const handleChange = (event) => {
         const {
@@ -86,16 +85,12 @@ const CreateTicketModal = (props) => {
 
         const ticket = {
             'title': ticketName,
-            'list': ticketList,
+            'list': props.defaultListValue,
             'tags': tags,
             'description': ticketDescription,
         }
 
         props.handleCreateTicketSubmitted(ticket);
-    }
-
-    const handleChangeTicketLane = (event) => {
-        changeTicketList(event.target.value);
     }
 
     const listOptions = props.lists.map((list,i) => {
@@ -122,9 +117,9 @@ const CreateTicketModal = (props) => {
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={ticketList}
+                value={props.defaultListValue}
                 label="List"
-                onChange={handleChangeTicketLane}
+                onChange={props.handleListChange}
                 >
                 {listOptions}
                 </Select>
