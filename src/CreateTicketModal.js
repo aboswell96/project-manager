@@ -86,6 +86,7 @@ const CreateTicketModal = (props) => {
 
         const ticket = {
             'title': ticketName,
+            'list': ticketList,
             'tags': tags,
             'description': ticketDescription,
         }
@@ -124,7 +125,6 @@ const CreateTicketModal = (props) => {
                 value={ticketList}
                 label="List"
                 onChange={handleChangeTicketLane}
-                defaultValue={props.defaultListValue}
                 >
                 {listOptions}
                 </Select>

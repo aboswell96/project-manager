@@ -7,7 +7,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 const lists = ["To Do", "In Progress", "Ready for Testing","Done"];
 const boardTitle = "Example Board Title";
 const footerText = "+ Add an item";
-const dummydata = [
+const tempData = [
     {
         title:"title 1",
         list:"To Do",
@@ -32,11 +32,16 @@ const Homepage = () => {
 
     const [isOpen,setIsOpen] = useState(false);
     const handleClose = () => setIsOpen(false);
+    const [dummydata,SetDummyData] = useState(tempData);
 
     const handleCreateTicketSubmitted = (ticket) => {
         // alert(JSON.stringify(ticket));
-        dummydata.push(ticket);
+        SetDummyData(dummydata.concat(ticket));
         handleClose();
+    }
+
+    const handleCreateTicket = () => {
+        setIsOpen(!isOpen);
     }
 
     const cardColumns = lists.map((listName,index) => {
@@ -44,7 +49,7 @@ const Homepage = () => {
         const tickets = dummydata.filter(ticket => ticket.list === listName).map((data,i) => {
 
             return(
-                    <Card>
+                    <Card key={i}>
                         <CardContent sx={{pt:'5px',pl:'5px'}}>
                             {data.tags.length > 0 && <div class="tags"> {getTagComponentsForTagText(data.tags)} </div> }
                             <Typography variant="subtitle1" align="left" noWrap="true" sx={{'lineHeight':1}}>
@@ -74,12 +79,7 @@ const Homepage = () => {
                     <button class="addItemButton" onClick={()=>handleCreateTicket()}>{footerText}</button>
                 </div>
             </div>)
-            }
-        );
-
-    const handleCreateTicket = () => {
-        setIsOpen(!isOpen);
-    }
+    });
 
     return(
         <div>
