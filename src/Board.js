@@ -4,22 +4,25 @@ import CreateTicketModal from './CreateTicketModal.js';
 
 import { Card, CardContent, Typography } from '@mui/material';
 
-const cols = ["To Do", "In Progress", "Ready for Testing","Done"];
+const lists = ["To Do", "In Progress", "Ready for Testing","Done"];
 const boardTitle = "Example Board Title";
 const footerText = "+ Add an item";
 const dummydata = [
     {
         title:"title 1",
+        list:"To Do",
         tags:["bug","spike","escalation","new feature"],
         description:"test description",
     },
     {
         title:"looooooooooooooooooooooooong title",
+        list:"In Progress",
         tags:["bug","spike","escalation","need help"],
         description:"test description",
     },
     {
         title:"title",
+        list:"Ready for Testing",
         tags:[],
         description:"test description",
     },
@@ -30,31 +33,32 @@ const Homepage = () => {
     const [isOpen,setIsOpen] = useState(false);
     const handleClose = () => setIsOpen(false);
 
-    const tickets = dummydata.map((data,i) => {
-
-        return(
-                <Card>
-                    <CardContent sx={{pt:'5px',pl:'5px'}}>
-                        {data.tags.length > 0 && <div class="tags"> {getTagComponentsForTagText(data.tags)} </div> }
-                        <Typography variant="subtitle1" align="left" noWrap="true" sx={{'lineHeight':1}}>
-                            {data.title}
-                        </Typography>
-                    </CardContent>
-                </Card>
-        );
-    });
-
     const handleCreateTicketSubmitted = (ticket) => {
         // alert(JSON.stringify(ticket));
         dummydata.push(ticket);
         handleClose();
     }
 
-    const cardColumns = cols.map((colHeader,index) => {
+    const cardColumns = lists.map((listName,index) => {
+
+        const tickets = dummydata.filter(ticket => ticket.list === listName).map((data,i) => {
+
+            return(
+                    <Card>
+                        <CardContent sx={{pt:'5px',pl:'5px'}}>
+                            {data.tags.length > 0 && <div class="tags"> {getTagComponentsForTagText(data.tags)} </div> }
+                            <Typography variant="subtitle1" align="left" noWrap="true" sx={{'lineHeight':1}}>
+                                {data.title}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+            );
+        });
+
         return(
             <div class="column_container">
                 <div class="col_header">
-                    {colHeader}
+                    {listName}
                 </div>
                 <div class="col_cards">
                     {tickets}
@@ -64,11 +68,14 @@ const Homepage = () => {
                         isOpen={isOpen}
                         handleClose={handleClose}
                         handleCreateTicketSubmitted={handleCreateTicketSubmitted}
+                        lists={lists}
+                        defaultListValue={listName}
                     />
                     <button class="addItemButton" onClick={()=>handleCreateTicket()}>{footerText}</button>
                 </div>
-            </div>)}
-    );
+            </div>)
+            }
+        );
 
     const handleCreateTicket = () => {
         setIsOpen(!isOpen);

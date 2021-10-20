@@ -46,8 +46,6 @@ const style = {
   ];
 
   const getStyles = (name, personName, theme) => {
-
-    console.log([name, personName, theme]);
     return {
       fontWeight:
         personName.indexOf(name) === -1
@@ -58,10 +56,13 @@ const style = {
 
 const CreateTicketModal = (props) => {
 
+    console.log(props.defaultListValue);
+
     const theme = useTheme();
     const [tags, setTags] = useState([]);
     const [ticketDescription,changeTicketDescription] = useState("");
     const [ticketName, changeTicketName] = useState("");
+    const [ticketList, changeTicketList] = useState(props.defaultListValue);
 
     const handleChange = (event) => {
         const {
@@ -92,6 +93,16 @@ const CreateTicketModal = (props) => {
         props.handleCreateTicketSubmitted(ticket);
     }
 
+    const handleChangeTicketLane = (event) => {
+        changeTicketList(event.target.value);
+    }
+
+    const listOptions = props.lists.map((list,i) => {
+        return(
+            <MenuItem value={list}>{list}</MenuItem>
+        );
+    });
+
     return(
         <div>
             <Modal
@@ -102,7 +113,23 @@ const CreateTicketModal = (props) => {
                 <Typography variant="h4" component="div" gutterBottom>
                     Create Ticket
                 </Typography>
+
                 <TextField fullWidth label="Enter a Ticket Name" value={ticketName} onChange={handleChangeTicketName} id="fullWidth" />
+    
+                <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-simple-select-label">List</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={ticketList}
+                label="List"
+                onChange={handleChangeTicketLane}
+                defaultValue={props.defaultListValue}
+                >
+                {listOptions}
+                </Select>
+                </FormControl>
+
                 <FormControl sx={{ m: 1, width: 300 }}>
                 <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
                 <Select
@@ -132,6 +159,7 @@ const CreateTicketModal = (props) => {
                 ))}
                 </Select>
                 </FormControl>
+
                 <TextField
                     id="outlined-multiline-static"
                     label="Description"
@@ -141,10 +169,12 @@ const CreateTicketModal = (props) => {
                     rows={4}
                     sx={{width:'46ch',mb:'12px'}}
                     />
+
                 <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={handleCreateButtonClicked}>Create</Button>
                     <Button variant="outlined" onClick={props.handleClose}>Cancel</Button>
                 </Stack>
+
             </Box>
             </Modal>
         </div>
