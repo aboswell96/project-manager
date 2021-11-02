@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Board.css';
 import CreateTicketModal from './CreateTicketModal.js';
-
+import BoardOptions from './BoardOptions.js';
 import { Card, CardContent, Typography } from '@mui/material';
 
 const lists = ["To Do", "In Progress", "Ready for Testing","Done"];
@@ -46,8 +46,8 @@ const Homepage = () => {
         setIsOpen(!isOpen);
     }
 
-    const listChanged = () => {
-        
+    const OnSettingButtonClicked = () => {
+        alert('settings');
     }
 
     const cardColumns = lists.map((listName,index) => {
@@ -55,14 +55,14 @@ const Homepage = () => {
         const tickets = dummydata.filter(ticket => ticket.list === listName).map((data,i) => {
 
             return(
-                    <Card key={i}>
-                        <CardContent sx={{pt:'5px',pl:'5px'}}>
-                            {data.tags.length > 0 && <div class="tags"> {getTagComponentsForTagText(data.tags)} </div> }
-                            <Typography variant="subtitle1" align="left" noWrap="true" sx={{'lineHeight':1}}>
-                                {data.title}
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <Card key={i}>
+                    <CardContent sx={{pt:'5px',pl:'5px'}}>
+                        {data.tags.length > 0 && <div class="tags"> {getTagComponentsForTagText(data.tags)} </div> }
+                        <Typography variant="subtitle1" align="left" noWrap="true" sx={{'lineHeight':1}}>
+                            {data.title}
+                        </Typography>
+                    </CardContent>
+                </Card>
             );
         });
 
@@ -83,19 +83,24 @@ const Homepage = () => {
     return(
         <div>
             <div class="board_options">
-                {boardTitle}
+                <div class="board_title">
+                    {boardTitle}
+                </div>
+                <BoardOptions
+                    OnSettingButtonClicked={()=>OnSettingButtonClicked()}
+                />
             </div>
             <div class="vertical_swimlanes">
                 {cardColumns}
             </div>
             <CreateTicketModal
-                        isOpen={isOpen}
-                        handleClose={handleClose}
-                        handleCreateTicketSubmitted={handleCreateTicketSubmitted}
-                        lists={lists}
-                        defaultListValue={listClicked}
-                        handleListChange={(event)=>{SetListClicked(event.target.value)}}
-                    />
+                isOpen={isOpen}
+                handleClose={handleClose}
+                handleCreateTicketSubmitted={handleCreateTicketSubmitted}
+                lists={lists}
+                defaultListValue={listClicked}
+                handleListChange={(event)=>{SetListClicked(event.target.value)}}
+            />
         </div>
     );
     

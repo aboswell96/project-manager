@@ -16,9 +16,16 @@
 }
 
 .board_options {
+    display: flex;
+    flex-direction: row;
     padding: 5px 0px 0px 20px;
+    gap: 10px;
+}
+
+.board_title {
     color: white;
     font-size: large;
+    display: inline-block;
 }
 
 .col_header {
